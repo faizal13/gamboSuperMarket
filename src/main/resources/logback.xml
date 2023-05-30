@@ -1,0 +1,145 @@
+<configuration>
+
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n" />
+    <property name="APP_LOG_ROOT_DEBUG" value="/home/ec2-user/gambosupermarket/logs/debug"/>
+    <property name="APP_LOG_ROOT_INFO" value="/home/ec2-user/gambosupermarket/logs/info"/>
+    <property name="APP_LOG_ROOT_ERROR" value="/home/ec2-user/gambosupermarket/logs/error"/>
+    <property name="APP_LOG_ROOT_HIBERNATE" value="/home/ec2-user/gambosupermarket/logs/hibernate"/>
+    <property name="APP_LOG_ROOT_SPRING" value="/home/ec2-user/gambosupermarket/logs/spring"/>
+    <property name="APP_LOG_ROOT_SPRING_AOP" value="/home/ec2-user/gambosupermarket/logs/spring/aop"/>
+    
+    <!-- <property name="LOG_PATTERN" value="%d{yyyy-MM-dd'T'HH:mm:ss.SSSZ} %p %m%n" />
+    <property name="APP_LOG_ROOT_DEBUG" value="/gambosupermarket/logs/debug"/>
+    <property name="APP_LOG_ROOT_INFO" value="/gambosupermarket/logs/info"/>
+    <property name="APP_LOG_ROOT_ERROR" value="/gambosupermarket/logs/error"/>
+    <property name="APP_LOG_ROOT_HIBERNATE" value="/gambosupermarket/logs/hibernate"/>
+    <property name="APP_LOG_ROOT_SPRING" value="/gambosupermarket/logs/spring"/>
+    <property name="APP_LOG_ROOT_SPRING_AOP" value="/gambosupermarket/logs/spring/aop"/> -->
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="applicationLogDebug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${APP_LOG_ROOT_DEBUG}/application_debug.log</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${APP_LOG_ROOT_DEBUG}/application-%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+    <appender name="applicationLogInfo" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${APP_LOG_ROOT_INFO}/application_info.log</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${APP_LOG_ROOT_INFO}/application-%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+    <appender name="applicationLogError" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${APP_LOG_ROOT_ERROR}/application_error.log</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${APP_LOG_ROOT_ERROR}/application-%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <appender name="aopLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${APP_LOG_ROOT_SPRING_AOP}/application-aop.log</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${APP_LOG_ROOT}/application-aop-%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <appender name="springLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${APP_LOG_ROOT_SPRING}/spring-framework.log</file>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${APP_LOG_ROOT_SPRING}/spring-framework-%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <appender name="hibernateLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${APP_LOG_ROOT_HIBERNATE}/database.log</file>
+        <encoder>
+            <pattern>${APP_LOG_ROOT_HIBERNATE}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+            <fileNamePattern>${APP_LOG_ROOT}/database-%i.log</fileNamePattern>
+            <minIndex>1</minIndex>
+            <maxIndex>10</maxIndex>
+        </rollingPolicy>
+        <triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+            <maxFileSize>10MB</maxFileSize>
+        </triggeringPolicy>
+    </appender>
+
+    <logger name="com.gamboSupermarket.application" level="DEBUG" additivity="false">
+        <appender-ref ref="applicationLogDebug" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="com.gamboSupermarket.application" level="INFO" additivity="false">
+        <appender-ref ref="applicationLogInfo" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="com.gamboSupermarket.application" level="Error" additivity="false">
+        <appender-ref ref="applicationLogError" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="com.gamboSupermarket.application.aop" level="INFO" additivity="false">
+        <appender-ref ref="aopLog" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.springframework" level="DEBUG" additivity="false">
+        <appender-ref ref="springLog" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <logger name="org.hibernate" level="DEBUG" additivity="false">
+        <appender-ref ref="hibernateLog" />
+        <appender-ref ref="STDOUT" />
+    </logger>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+</configuration>
